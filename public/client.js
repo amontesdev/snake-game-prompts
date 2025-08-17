@@ -1,5 +1,5 @@
 
-    const canvas = document.getElementById("c");
+const canvas = document.getElementById("c");
     const ctx = canvas.getContext("2d");
     const scoresEl = document.getElementById("scores");
     const statusEl = document.getElementById("status");
@@ -24,11 +24,48 @@
     }
     });
 
-    // Handle mobile buttons
-document.getElementById("btn-up").addEventListener("click", () => socket.emit("move", "UP"));
-document.getElementById("btn-down").addEventListener("click", () => socket.emit("move", "DOWN"));
-document.getElementById("btn-left").addEventListener("click", () => socket.emit("move", "LEFT"));
-document.getElementById("btn-right").addEventListener("click", () => socket.emit("move", "RIGHT"));
+    // Handle mobile buttons with throttling
+    let lastMoveTime = 0;
+    const MOVE_THROTTLE_MS = 100; // Prevent moves faster than 100ms apart
+    
+    function throttledMove(direction, buttonElement) {
+      const now = Date.now();
+      if (now - lastMoveTime >= MOVE_THROTTLE_MS) {
+        socket.emit("move", direction);
+        lastMoveTime = now;
+        
+        // Visual feedback - briefly highlight the button
+        if (buttonElement) {
+          buttonElement.style.transform = 'scale(0.9)';
+          buttonElement.style.opacity = '0.7';
+          setTimeout(() => {
+            buttonElement.style.transform = '';
+            buttonElement.style.opacity = '';
+          }, 150);
+        }
+      }
+    }
+    
+    // Add both click and touchstart events for better mobile responsiveness
+    const buttons = [
+      { id: "btn-up", direction: "UP" },
+      { id: "btn-down", direction: "DOWN" },
+      { id: "btn-left", direction: "LEFT" },
+      { id: "btn-right", direction: "RIGHT" }
+    ];
+    
+    buttons.forEach(({ id, direction }) => {
+      const button = document.getElementById(id);
+      
+      // Handle both click and touchstart for better mobile experience
+      const handleMove = (e) => {
+        e.preventDefault(); // Prevent default touch behavior
+        throttledMove(direction, e.target);
+      };
+      
+      button.addEventListener("click", handleMove);
+      button.addEventListener("touchstart", handleMove, { passive: false });
+    });
 
     // Input
     const ARROWS = new Set(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"]);
