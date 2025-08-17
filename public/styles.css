@@ -34,3 +34,38 @@
         display: flex; justify-content: center; align-items: center;
         background: rgba(0,0,0,0.6);
     }
+    #mobile-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.control-row {
+  display: flex;
+  justify-content: center;
+  margin: 5px;
+}
+
+.btn {
+  width: 60px;
+  height: 60px;
+  margin: 8px;
+  border-radius: 50%;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.3);
+  transition: transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.9);
+}
+
+.y { background: #f1c40f; }  /* Yellow */
+.a { background: #2ecc71; }  /* Green */
+.x { background: #3498db; }  /* Blue */
+.b { background: #e74c3c; }  /* Red */
