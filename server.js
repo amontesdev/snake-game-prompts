@@ -20,7 +20,7 @@ const BOX = 20;
 const ROWS = CANVAS_H / BOX;
 const COLS = CANVAS_W / BOX;
 
-const START_SPEED_MS = 100;
+const START_SPEED_MS = 150;
 const MIN_SPEED_MS = 50;
 
 const FOOD_TYPES = [

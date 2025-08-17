@@ -25,18 +25,10 @@
     });
 
     // Handle mobile buttons
-document.getElementById("btn-up").addEventListener("click", () => {
-  socket.emit("move", "UP");
-});
-document.getElementById("btn-down").addEventListener("click", () => {
-  socket.emit("move", "DOWN");
-});
-document.getElementById("btn-left").addEventListener("click", () => {
-  socket.emit("move", "LEFT");
-});
-document.getElementById("btn-right").addEventListener("click", () => {
-  socket.emit("move", "RIGHT");
-});
+document.getElementById("btn-up").addEventListener("click", () => socket.emit("move", "UP"));
+document.getElementById("btn-down").addEventListener("click", () => socket.emit("move", "DOWN"));
+document.getElementById("btn-left").addEventListener("click", () => socket.emit("move", "LEFT"));
+document.getElementById("btn-right").addEventListener("click", () => socket.emit("move", "RIGHT"));
 
     // Input
     const ARROWS = new Set(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"]);
